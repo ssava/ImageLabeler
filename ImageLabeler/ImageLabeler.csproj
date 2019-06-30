@@ -44,14 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Filters\SobelFilter.cs" />
+    <Compile Include="Objects\EditorBox.cs" />
+    <Compile Include="EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="EditorForm.Designer.cs">
+      <DependentUpon>EditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objects\EditorBoxState.cs" />
+    <Compile Include="Objects\EditorImage.cs" />
+    <Compile Include="Objects\EditorObject.cs" />
+    <Compile Include="Objects\EditorDataSet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DlibObject.cs" />
+    <EmbeddedResource Include="EditorForm.resx">
+      <DependentUpon>EditorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
