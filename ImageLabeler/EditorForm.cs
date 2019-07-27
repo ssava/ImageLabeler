@@ -51,25 +51,11 @@ namespace ImageLabeler
                 if (curr == EditorBox.None)
                     return;
 
-                /* Se la EditorBox corrente non è uguale all'ultima usata, */
-                if (!curr.Equals(sbox))
-                {
-                    /* In precedenza ne era già state selezionata un'altra, */
-                    if (sbox != null)
-                        /* E l'ultima è attualmente selezionata. Deselezionala */
-                        if (sbox.IsSelected)
-                        {
-                            pBox.Image = sbox.ChangeState(t);
-                            boxEditor.Enabled = false;
-                        }
-
-                }
-
-                /* Imposta l'ultima selezionata con la corrente */
+                Image rendered = sbox?.ChangeState(t);
                 sbox = curr;
 
-                /* Cambia il suo stato */
-                Image rendered = sbox.ChangeState(t);
+                if (rendered == null)
+                    return;
 
                 /* Se è stata selezionata una box imposta l'editor dati */
                 topXnum.Maximum = rendered.Width;

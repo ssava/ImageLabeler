@@ -49,13 +49,8 @@ namespace ImageLabeler.Objects
 
         public EditorBox GetBox(int x, int y)
         {
-            foreach (EditorBox box in Boxes)
-            {
-                if (box.Rectangle.Contains(x, y))
-                    return box;
-            }
 
-            return null;
+            return Boxes.Find(b => b.Rectangle.Contains(x, y));
         }
 
         public EditorBox AddBox(EditorBox editorBox)
