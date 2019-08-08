@@ -9,7 +9,7 @@ namespace ImageLabeler
     {
         PictureBox pBox;
         EditorDataSet t;
-        EditorBox sbox;
+        EditorBox renderedSelectedBox;
 
         public EditorForm()
         {
@@ -45,29 +45,30 @@ namespace ImageLabeler
             {
 
                 /* Box su cui si è cliccato null altrimenti */
-                EditorBox curr = t.GetBox(e.X, e.Y);
+                EditorBox clickedBox = t.GetBox(e.X, e.Y);
 
-                /* Se la zona su cui si è cliccato non huna box; ritorna */
-                if (curr == EditorBox.None)
+                /* Se la zona su cui si è cliccato non ha una box */
+                if (clickedBox == EditorBox.None)
+                {
+                    t.Boxes.FindAll(b => b.IsSelected).ForEach(b => b.ChangeState(t));
                     return;
+                }
 
-                Image rendered = sbox?.ChangeState(t);
-                sbox = curr;
+                if (renderedSelectedBox != clickedBox)
+                {
+                    if (renderedSelectedBox != EditorBox.None)
+                        renderedSelectedBox?.ChangeState(t);
+                }
+
+                renderedSelectedBox = clickedBox;
+
+                Image rendered = renderedSelectedBox?.ChangeState(t); //365ms
 
                 if (rendered == null)
                     return;
 
                 /* Se è stata selezionata una box imposta l'editor dati */
-                topXnum.Maximum = rendered.Width;
-                topYnum.Maximum = rendered.Height;
-                widthNum.Maximum = rendered.Width;
-                heightNum.Maximum = rendered.Height;
-
-                topXnum.Value = sbox.Left;
-                topYnum.Value = sbox.Top;
-                widthNum.Value = sbox.Width;
-                heightNum.Value = sbox.Height;
-                labelTxt.Text = sbox.Label;
+                SetEditorData(rendered);                              // 1270ms
 
                 pBox.Image.Dispose();
                 pBox.Image = rendered;
@@ -76,11 +77,8 @@ namespace ImageLabeler
                 return;
             }
 
-            if(e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
-                //if (sbox != null)
-                //    return;
-
                 EditorImage dImg = (EditorImage)treeView1.SelectedNode.Tag;
 
                 dImg.AddBox(new EditorBox(new DataBox
@@ -99,7 +97,21 @@ namespace ImageLabeler
             }
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        private void SetEditorData(Image rendered)
+        {
+            topXnum.Maximum = rendered.Width;
+            topYnum.Maximum = rendered.Height;
+            widthNum.Maximum = rendered.Width;
+            heightNum.Maximum = rendered.Height;
+
+            topXnum.Value = renderedSelectedBox.Left;
+            topYnum.Value = renderedSelectedBox.Top;
+            widthNum.Value = renderedSelectedBox.Width;
+            heightNum.Value = renderedSelectedBox.Height;
+            labelTxt.Text = renderedSelectedBox.Label;
+        }
+
+        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (sender == null)
                 return;
@@ -138,6 +150,8 @@ namespace ImageLabeler
                     Text = dsImg.ToString()
                 });
 
+            comboBox1.Items.AddRange(t.Labels);
+
             editorStatusLabel.Text = string.Format(@"Dataset {0} loaded. {1} images", t.Name, t.Images.Count);
         }
 
@@ -151,19 +165,19 @@ namespace ImageLabeler
             if (sender == null)
                 return;
 
-            if (sbox == null)
+            if (renderedSelectedBox == null)
                 return;
 
-            if (!sbox.IsSelected)
+            if (!renderedSelectedBox.IsSelected)
                 return;
 
             NumericUpDown sendObj = (NumericUpDown)sender;
 
             string name = sendObj.Name;
-            int top = sbox.Top;
-            int left = sbox.Left;
-            int width = sbox.Width;
-            int height = sbox.Height;
+            int top = renderedSelectedBox.Top;
+            int left = renderedSelectedBox.Left;
+            int width = renderedSelectedBox.Width;
+            int height = renderedSelectedBox.Height;
 
             switch (name)
             {
@@ -186,7 +200,7 @@ namespace ImageLabeler
 
             Rectangle newBox = new Rectangle(left, top, width, height);
 
-            sbox.SetRectangle(newBox);
+            renderedSelectedBox.SetRectangle(newBox);
             RenderCurrentImage();
         }
 
@@ -199,7 +213,7 @@ namespace ImageLabeler
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            sbox.SetLabel(labelTxt.Text);
+            renderedSelectedBox.SetLabel(labelTxt.Text);
             t.Save();
         }
 
@@ -250,7 +264,7 @@ namespace ImageLabeler
             if (sender == null)
                 return;
 
-            if (sbox != null)
+            if (renderedSelectedBox != null)
                 return;
 
             EditorImage dImg = (EditorImage)treeView1.SelectedNode.Tag;
@@ -265,6 +279,33 @@ namespace ImageLabeler
             }));
 
             pBox.Image = dImg.Render();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            return;      }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (sender == null)
+                return;
+
+            if (renderedSelectedBox == EditorBox.None)
+                return;
+
+            EditorImage dImg = (EditorImage)treeView1.SelectedNode.Tag;
+
+            Image region = dImg.GetImage(renderedSelectedBox);
+
+            SaveFileDialog sfdlg = new SaveFileDialog();
+
+            if (sfdlg.ShowDialog() != DialogResult.OK)
+                return;
+
+            if (string.IsNullOrEmpty(sfdlg.FileName))
+                return;
+            
+            region.Save(sfdlg.FileName);
         }
     }
 }

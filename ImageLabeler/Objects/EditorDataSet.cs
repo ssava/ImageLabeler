@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ImageLabeler.Objects
 {
@@ -11,14 +12,25 @@ namespace ImageLabeler.Objects
         public string Comment => wrapped.Comment;
 
         public List<EditorImage> Images { get; private set; }
+        public string[] Labels { get; internal set; }
 
         public EditorDataSet(DataSet dataSet) :
             base(dataSet)
         {
+            SortedSet<string> setLabels = new SortedSet<string>();
             Images = new List<EditorImage>();
 
             foreach (DataImage dImg in wrapped.Images)
-                Images.Add(new EditorImage(dImg));
+            {
+                EditorImage wrappedImage = new EditorImage(dImg);
+                Images.Add(wrappedImage);
+
+                foreach (EditorBox b in wrappedImage.Boxes)
+                    if (!setLabels.Contains(b.Label))
+                        setLabels.Add(b.Label);
+            }
+
+            Labels = setLabels.ToArray();
         }
 
         public override string ToString()

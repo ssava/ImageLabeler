@@ -11,11 +11,6 @@ namespace ImageLabeler.Objects
         {
         }
 
-        //public void SetBox()
-        //{
-        //    this.box = box;
-        //}
-
         public abstract Bitmap Render(Image prev, EditorBox box);
     }
 
@@ -83,7 +78,7 @@ namespace ImageLabeler.Objects
             {
                 g.FillRectangle(b, box.Rectangle);
                 g.DrawRectangle(bc, box.Rectangle);
-
+                
                 bc.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
 
                 g.FillRectangles(fc, anchors);

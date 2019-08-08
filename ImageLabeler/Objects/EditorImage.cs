@@ -60,5 +60,20 @@ namespace ImageLabeler.Objects
 
             return editorBox;
         }
+
+        public Image GetImage(EditorBox box)
+        {
+            Bitmap region = new Bitmap(box.Width, box.Height);
+
+            for (int i = box.Left; i < (box.Left + box.Width); i++)
+            {
+                for (int j = box.Top; j < (box.Top +  box.Height); j++)
+                {
+                    region.SetPixel(i - box.Left, j - box.Top, bmpImage.GetPixel(i, j));
+                }
+            }
+
+            return region;
+        }
     }
 }
