@@ -285,7 +285,7 @@ namespace ImageLabeler
         {
             return;      }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void Button1_Click_1(object sender, EventArgs e)
         {
             if (sender == null)
                 return;
@@ -306,6 +306,7 @@ namespace ImageLabeler
                 return;
             
             region.Save(sfdlg.FileName);
+            region.Dispose();
         }
     }
 }
