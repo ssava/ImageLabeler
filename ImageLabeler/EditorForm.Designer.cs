@@ -40,10 +40,10 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.boxEditor = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.labelTxt = new System.Windows.Forms.ComboBox();
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
-            this.labelTxt = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.heightNum = new System.Windows.Forms.NumericUpDown();
             this.widthNum = new System.Windows.Forms.NumericUpDown();
@@ -53,7 +53,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -136,7 +135,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(149, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(645, 398);
+            this.panel1.Size = new System.Drawing.Size(644, 398);
             this.panel1.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -144,7 +143,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.35358F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.64642F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 176F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177F));
             this.tableLayoutPanel1.Controls.Add(this.treeView1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.boxEditor, 2, 0);
@@ -168,10 +167,9 @@
             // boxEditor
             // 
             this.boxEditor.Controls.Add(this.button1);
-            this.boxEditor.Controls.Add(this.comboBox1);
+            this.boxEditor.Controls.Add(this.labelTxt);
             this.boxEditor.Controls.Add(this.btnCreate);
             this.boxEditor.Controls.Add(this.btnApply);
-            this.boxEditor.Controls.Add(this.labelTxt);
             this.boxEditor.Controls.Add(this.label5);
             this.boxEditor.Controls.Add(this.heightNum);
             this.boxEditor.Controls.Add(this.widthNum);
@@ -190,13 +188,23 @@
             this.boxEditor.Text = "Box Editor";
             this.boxEditor.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // comboBox1
+            // button1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(9, 238);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(141, 21);
-            this.comboBox1.TabIndex = 13;
+            this.button1.Location = new System.Drawing.Point(6, 265);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(141, 34);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Save box";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
+            // 
+            // labelTxt
+            // 
+            this.labelTxt.FormattingEnabled = true;
+            this.labelTxt.Location = new System.Drawing.Point(51, 123);
+            this.labelTxt.Name = "labelTxt";
+            this.labelTxt.Size = new System.Drawing.Size(100, 21);
+            this.labelTxt.TabIndex = 13;
             // 
             // btnCreate
             // 
@@ -217,13 +225,6 @@
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
-            // 
-            // labelTxt
-            // 
-            this.labelTxt.Location = new System.Drawing.Point(51, 123);
-            this.labelTxt.Name = "labelTxt";
-            this.labelTxt.Size = new System.Drawing.Size(100, 20);
-            this.labelTxt.TabIndex = 9;
             // 
             // label5
             // 
@@ -302,16 +303,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Top X";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 265);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(141, 34);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Save box";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
-            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,14 +350,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox labelTxt;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.ToolStripMenuItem datasetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addImageToDatasetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.Button btnCreate;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox labelTxt;
         private System.Windows.Forms.Button button1;
     }
 }

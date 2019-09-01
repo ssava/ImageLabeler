@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace ImageLabeler.Filters
 {
-    public sealed class SobelFilter
+    public sealed class SobelFilter : AbstractImageFilter
     {
 
         //Sobel operator kernel for horizontal pixel changes
@@ -43,6 +43,11 @@ namespace ImageLabeler.Filters
         {
             xkernel = xSobel;
             ykernel = ySobel;
+        }
+
+        public override Bitmap Apply(Bitmap src)
+        {
+            return Apply(src, 1, 0, false);
         }
 
         public Bitmap Apply(Bitmap sourceImage, double factor = 1, int bias = 0, bool grayscale = false)

@@ -1,4 +1,5 @@
-﻿using ImageLabeler.Objects;
+﻿using ImageLabeler.Filters;
+using ImageLabeler.Objects;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -79,17 +80,38 @@ namespace ImageLabeler
 
             if (e.Button == MouseButtons.Right)
             {
+                FilterOptions fOpts = new FilterOptions();
+                Bitmap bmpMask = new Bitmap(t.File);
+
                 EditorImage dImg = (EditorImage)treeView1.SelectedNode.Tag;
+
+                bmpMask = new Bitmap(t.File);
+
+                FillRegionDetector det = new FillRegionDetector(e.Location);
+
+                bmpMask = new ContrastFilter(0.8f).Apply(bmpMask);
+                det.Apply(bmpMask);
+
+                Rectangle area = det.Detected;
+
+                if (area.Width <= 0 || area.Height <= 0)
+                {
+                    MessageBox.Show(@"No valid box detected!", @"No box detected", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bmpMask.Dispose();
+                    return;
+                }
 
                 dImg.AddBox(new EditorBox(new DataBox
                 {
-                    Top = e.Y,
-                    Left = e.X,
-                    Height = 200,
-                    Width = 100,
+                    Top = area.Top,
+                    Left = area.Left,
+                    Height = area.Height,
+                    Width = area.Width,
                     Label = "new box"
                 }));
 
+
+                bmpMask.Dispose();
                 pBox.Image.Dispose();
                 pBox.Image = dImg.Render();
 
@@ -141,7 +163,7 @@ namespace ImageLabeler
 
             t = EditorDataSet.Load(fDlg.FileName);
 
-            TreeNode root = treeView1.Nodes.Add(t.Name);
+            TreeNode root = treeView1.Nodes.Add("{0} - [{1} image(s)]", t.Name, t.Images.Count);
 
             foreach (var dsImg in t.Images)
                 root.Nodes.Add(new TreeNode
@@ -150,7 +172,7 @@ namespace ImageLabeler
                     Text = dsImg.ToString()
                 });
 
-            comboBox1.Items.AddRange(t.Labels);
+            labelTxt.Items.AddRange(t.Labels);
 
             editorStatusLabel.Text = string.Format(@"Dataset {0} loaded. {1} images", t.Name, t.Images.Count);
         }
@@ -215,6 +237,8 @@ namespace ImageLabeler
         {
             renderedSelectedBox.SetLabel(labelTxt.Text);
             t.Save();
+            EditorImage dImg = (EditorImage)treeView1.SelectedNode.Tag;
+            pBox.Image = renderedSelectedBox.ChangeState(dImg);
         }
 
         private void addImageToDatasetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -233,7 +257,7 @@ namespace ImageLabeler
 
                 treeView1.Nodes.Clear();
 
-                TreeNode root = treeView1.Nodes.Add(t.Name);
+                TreeNode root = treeView1.Nodes.Add("{0} - [{1} image(s)]", t.Name, t.Images.Count);
 
                 foreach (var dsImg in t.Images)
                     root.Nodes.Add(new TreeNode
@@ -283,7 +307,8 @@ namespace ImageLabeler
 
         private void button1_Click(object sender, EventArgs e)
         {
-            return;      }
+            return;
+        }
 
         private void Button1_Click_1(object sender, EventArgs e)
         {
@@ -304,7 +329,7 @@ namespace ImageLabeler
 
             if (string.IsNullOrEmpty(sfdlg.FileName))
                 return;
-            
+
             region.Save(sfdlg.FileName);
             region.Dispose();
         }

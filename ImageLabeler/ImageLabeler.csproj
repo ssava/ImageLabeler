@@ -44,6 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FilterOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FilterOptions.Designer.cs">
+      <DependentUpon>FilterOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filters\AbstractImageFilter.cs" />
+    <Compile Include="Filters\ContrastFilter.cs" />
+    <Compile Include="Filters\NormalizeFilter.cs" />
+    <Compile Include="Filters\BWFilter.cs" />
+    <Compile Include="Filters\FillRegionDetector.cs" />
     <Compile Include="Filters\SobelFilter.cs" />
     <Compile Include="Objects\EditorBox.cs" />
     <Compile Include="EditorForm.cs">
@@ -61,6 +72,9 @@
     <Compile Include="DlibObject.cs" />
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilterOptions.resx">
+      <DependentUpon>FilterOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -80,6 +94,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
