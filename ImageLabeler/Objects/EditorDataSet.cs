@@ -1,26 +1,26 @@
-﻿using System;
+﻿using ImageLabeler.Services;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ImageLabeler.Objects
 {
-    public sealed class EditorDataSet : EditorObject<DataSet>
+    public sealed class EditorDataSet : EditorObject<IDataSet>
     {
         public string Path { get; set; }
 
-        public string Name => wrapped.Name;
-        public string Comment => wrapped.Comment;
+        public string Name => DlibObject.Name;
+        public string Comment => DlibObject.Comment;
 
         public List<EditorImage> Images { get; private set; }
         public string[] Labels { get; internal set; }
 
-        public EditorDataSet(DataSet dataSet) :
+        public EditorDataSet(IDataSet dataSet) :
             base(dataSet)
         {
             SortedSet<string> setLabels = new SortedSet<string>();
             Images = new List<EditorImage>();
 
-            foreach (DataImage dImg in wrapped.Images)
+            foreach (DataImage dImg in DlibObject.Images)
             {
                 EditorImage wrappedImage = new EditorImage(dImg);
                 Images.Add(wrappedImage);
@@ -36,24 +36,15 @@ namespace ImageLabeler.Objects
 
         public override string ToString()
         {
-            return wrapped.ToString();
+            return DlibObject.ToString();
         }
 
-        public static EditorDataSet Load(string fileName)
+        public static EditorDataSet Load(IDatasetService datasetService, string fileName)
         {
-            EditorDataSet loaded = new EditorDataSet(DlibObject.Load<DataSet>(fileName));
+            EditorDataSet loaded = new EditorDataSet(datasetService.Load(fileName));
             loaded.Path = fileName;
 
             return loaded;
-        }
-
-        public void Save()
-        {
-            if (string.IsNullOrEmpty(Path))
-                //showdlgsave
-                return;
-
-            DlibObject.Save<DataSet>(wrapped, Path);
         }
 
         public EditorImage AddImage(string fileName)
@@ -66,7 +57,7 @@ namespace ImageLabeler.Objects
 
             EditorImage edImg = new EditorImage(dImg);
 
-            wrapped.Images.Add(dImg);
+            DlibObject.Images.Add(dImg);
             Images.Add(edImg);
 
             return edImg;

@@ -6,7 +6,7 @@ namespace ImageLabeler.Objects
 {
     public sealed class EditorImage : EditorObject<DataImage>
     {
-        public string File => wrapped.File;
+        public string File => DlibObject.File;
         public List<EditorBox> Boxes { get; private set; }
 
         private readonly Bitmap bmpImage;
@@ -20,7 +20,7 @@ namespace ImageLabeler.Objects
             bmpImage = new Bitmap(fPath);
             Boxes = new List<EditorBox>();
 
-            foreach (DataBox b in wrapped.Boxes)
+            foreach (DataBox b in DlibObject.Boxes)
                 Boxes.Add(new EditorBox(b));
         }
 
@@ -55,7 +55,7 @@ namespace ImageLabeler.Objects
 
         public EditorBox AddBox(EditorBox editorBox)
         {
-            wrapped.Boxes.Add(editorBox.GetDlibObject());
+            DlibObject.Boxes.Add(editorBox.DlibObject);
             this.Boxes.Add(editorBox);
 
             return editorBox;

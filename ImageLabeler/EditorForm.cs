@@ -1,5 +1,6 @@
 ﻿using ImageLabeler.Filters;
 using ImageLabeler.Objects;
+using ImageLabeler.Services;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -11,6 +12,9 @@ namespace ImageLabeler
         PictureBox pBox;
         EditorDataSet t;
         EditorBox renderedSelectedBox;
+
+        // TODO: Refactor (configure DI)
+        IDatasetService datasetService = new DatasetService();
 
         public EditorForm()
         {
@@ -161,7 +165,7 @@ namespace ImageLabeler
 
             treeView1.Nodes.Clear();
 
-            t = EditorDataSet.Load(fDlg.FileName);
+            t = EditorDataSet.Load(datasetService, fDlg.FileName);
 
             TreeNode root = treeView1.Nodes.Add("{0} - [{1} image(s)]", t.Name, t.Images.Count);
 
@@ -177,7 +181,7 @@ namespace ImageLabeler
             editorStatusLabel.Text = string.Format(@"Dataset {0} loaded. {1} images", t.Name, t.Images.Count);
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void GroupBox1_Enter(object sender, EventArgs e)
         {
 
         }
@@ -236,12 +240,12 @@ namespace ImageLabeler
         private void btnApply_Click(object sender, EventArgs e)
         {
             renderedSelectedBox.SetLabel(labelTxt.Text);
-            t.Save();
+            datasetService.Save(t.DlibObject);
             EditorImage dImg = (EditorImage)treeView1.SelectedNode.Tag;
             pBox.Image = renderedSelectedBox.ChangeState(dImg);
         }
 
-        private void addImageToDatasetToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddImageToDatasetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (sender == null)
                 return;
@@ -253,6 +257,15 @@ namespace ImageLabeler
 
             try
             {
+                if (t == null)
+                {
+                    t = new EditorDataSet(new DataSet
+                    {
+                        Name = @"Temp",
+                        Comment = @"Draft"
+                    });
+                }
+
                 EditorImage addImg = t.AddImage(fDlg.FileName);
 
                 treeView1.Nodes.Clear();
@@ -272,7 +285,7 @@ namespace ImageLabeler
             }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (sender == null)
                 return;
@@ -280,10 +293,10 @@ namespace ImageLabeler
             if (t == null)
                 return;
 
-            t.Save();
+            datasetService.Save(t.DlibObject);
         }
 
-        private void btnCreate_Click(object sender, EventArgs e)
+        private void BtnCreate_Click(object sender, EventArgs e)
         {
             if (sender == null)
                 return;
@@ -305,7 +318,7 @@ namespace ImageLabeler
             pBox.Image = dImg.Render();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             return;
         }

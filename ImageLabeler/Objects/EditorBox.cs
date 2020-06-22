@@ -28,7 +28,7 @@ namespace ImageLabeler.Objects
         public int Left => Rectangle.Left;
         public int Width => Rectangle.Width;
         public int Height => Rectangle.Height;
-        public string Label => wrapped.Label;
+        public string Label => DlibObject.Label;
 
         public EditorBoxState mState;
 
@@ -46,7 +46,7 @@ namespace ImageLabeler.Objects
 
         public override string ToString()
         {
-            return wrapped.ToString();
+            return DlibObject.ToString();
         }
 
         public Bitmap ChangeState(EditorImage img)
@@ -71,15 +71,15 @@ namespace ImageLabeler.Objects
         {
             Rectangle = newBox;
 
-            wrapped.Top = this.Top;
-            wrapped.Left = this.Left;
-            wrapped.Width = this.Width;
-            wrapped.Height = this.Height;
+            DlibObject.Top = this.Top;
+            DlibObject.Left = this.Left;
+            DlibObject.Width = this.Width;
+            DlibObject.Height = this.Height;
         }
 
         public void SetLabel(string label)
         {
-            wrapped.Label = label;
+            DlibObject.Label = label;
         }
     }
 }

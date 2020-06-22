@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dlib\DataBox.cs" />
+    <Compile Include="Dlib\DataImage.cs" />
+    <Compile Include="Dlib\DataSet.cs" />
     <Compile Include="FilterOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,7 +72,8 @@
     <Compile Include="Objects\EditorDataSet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DlibObject.cs" />
+    <Compile Include="Dlib\ObjectSerializer.cs" />
+    <Compile Include="Services\DatasetService.cs" />
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,17 +1,12 @@
 ﻿namespace ImageLabeler.Objects
 {
-    public abstract class EditorObject<T> where T : DlibObject
+    public abstract class EditorObject<TObject> where TObject : IDlibObject
     {
-        protected T wrapped;
+        public TObject DlibObject { get; protected set; }
 
-        protected EditorObject(T tbw)
+        protected EditorObject(TObject tbw)
         {
-            wrapped = tbw;
-        }
-
-        public T GetDlibObject()
-        {
-            return wrapped;
+            DlibObject = tbw;
         }
     }
 }

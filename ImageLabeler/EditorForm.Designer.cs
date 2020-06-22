@@ -111,7 +111,7 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // datasetToolStripMenuItem
             // 
@@ -126,7 +126,7 @@
             this.addImageToDatasetToolStripMenuItem.Name = "addImageToDatasetToolStripMenuItem";
             this.addImageToDatasetToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.addImageToDatasetToolStripMenuItem.Text = "Add image to dataset";
-            this.addImageToDatasetToolStripMenuItem.Click += new System.EventHandler(this.addImageToDatasetToolStripMenuItem_Click);
+            this.addImageToDatasetToolStripMenuItem.Click += new System.EventHandler(this.AddImageToDatasetToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -186,7 +186,7 @@
             this.boxEditor.TabIndex = 2;
             this.boxEditor.TabStop = false;
             this.boxEditor.Text = "Box Editor";
-            this.boxEditor.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.boxEditor.Enter += new System.EventHandler(this.GroupBox1_Enter);
             // 
             // button1
             // 
@@ -214,7 +214,7 @@
             this.btnCreate.TabIndex = 11;
             this.btnCreate.Text = "Create";
             this.btnCreate.UseVisualStyleBackColor = true;
-            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
+            this.btnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
             // 
             // btnApply
             // 
