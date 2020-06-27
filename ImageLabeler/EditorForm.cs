@@ -3,13 +3,14 @@ using ImageLabeler.Objects;
 using ImageLabeler.Services;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ImageLabeler
 {
     public partial class EditorForm : Form
     {
-        PictureBox pBox;
+        readonly PictureBox pBox;
         EditorDataSet t;
         EditorBox renderedSelectedBox;
 
@@ -237,7 +238,7 @@ namespace ImageLabeler
             pBox.Image = dImg.Render();
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
+        private void BtnApply_Click(object sender, EventArgs e)
         {
             renderedSelectedBox.SetLabel(labelTxt.Text);
             datasetService.Save(t.DlibObject);
@@ -255,6 +256,11 @@ namespace ImageLabeler
             if (fDlg.ShowDialog() != DialogResult.OK)
                 return;
 
+            AddImageToDataset(fDlg.FileName);
+        }
+
+        private void AddImageToDataset(string fPath)
+        {
             try
             {
                 if (t == null)
@@ -266,7 +272,7 @@ namespace ImageLabeler
                     });
                 }
 
-                EditorImage addImg = t.AddImage(fDlg.FileName);
+                EditorImage addImg = t.AddImage(fPath);
 
                 treeView1.Nodes.Clear();
 
@@ -345,6 +351,27 @@ namespace ImageLabeler
 
             region.Save(sfdlg.FileName);
             region.Dispose();
+        }
+
+        private void AddFolderToDatasetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (sender == null)
+                return;
+
+            FolderBrowserDialog fDlg = new FolderBrowserDialog();
+
+            if (fDlg.ShowDialog() != DialogResult.OK)
+                return;
+
+            if (string.IsNullOrEmpty(fDlg.SelectedPath) && string.IsNullOrWhiteSpace(fDlg.SelectedPath))
+                return;
+
+            string[] files = Directory.GetFiles(fDlg.SelectedPath);
+
+            foreach(string fPath in files)
+            {
+                AddImageToDataset(fPath);
+            }
         }
     }
 }

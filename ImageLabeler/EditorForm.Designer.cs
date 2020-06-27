@@ -53,6 +53,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.addFolderToDatasetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -116,7 +117,8 @@
             // datasetToolStripMenuItem
             // 
             this.datasetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addImageToDatasetToolStripMenuItem});
+            this.addImageToDatasetToolStripMenuItem,
+            this.addFolderToDatasetToolStripMenuItem});
             this.datasetToolStripMenuItem.Name = "datasetToolStripMenuItem";
             this.datasetToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.datasetToolStripMenuItem.Text = "Dataset";
@@ -135,7 +137,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(149, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(644, 398);
+            this.panel1.Size = new System.Drawing.Size(643, 398);
             this.panel1.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -143,7 +145,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.35358F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.64642F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 178F));
             this.tableLayoutPanel1.Controls.Add(this.treeView1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.boxEditor, 2, 0);
@@ -224,7 +226,7 @@
             this.btnApply.TabIndex = 10;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            this.btnApply.Click += new System.EventHandler(this.BtnApply_Click);
             // 
             // label5
             // 
@@ -303,6 +305,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Top X";
             // 
+            // addFolderToDatasetToolStripMenuItem
+            // 
+            this.addFolderToDatasetToolStripMenuItem.Name = "addFolderToDatasetToolStripMenuItem";
+            this.addFolderToDatasetToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.addFolderToDatasetToolStripMenuItem.Text = "Add folder to dataset";
+            this.addFolderToDatasetToolStripMenuItem.Click += new System.EventHandler(this.AddFolderToDatasetToolStripMenuItem_Click);
+            // 
             // EditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,6 +367,7 @@
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.ComboBox labelTxt;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem addFolderToDatasetToolStripMenuItem;
     }
 }
 
