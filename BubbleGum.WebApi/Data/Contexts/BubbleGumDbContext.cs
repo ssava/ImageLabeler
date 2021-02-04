@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BubbleGum.WebApi.Data.Contexts
 {
-    public class RegionDbContext : DbContext
+    public class BubbleGumDbContext : DbContext
     {
         public DbSet<LabeledRegion> Regions { get; set; }
+        public DbSet<TrainingImage> Images { get; set; }
 
-        public RegionDbContext(DbContextOptions<RegionDbContext> options)
+        public BubbleGumDbContext(DbContextOptions<BubbleGumDbContext> options)
             : base(options)
         {
         }
@@ -16,6 +17,7 @@ namespace BubbleGum.WebApi.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(LabeledRegionEntityTypeConfiguration).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TrainingImageEntityTypeConfiguration).Assembly);
         }
     }
 }

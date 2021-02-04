@@ -24,19 +24,19 @@ namespace BubbleGum.WebApi.Controllers
         }
 
         /// <summary>
-        /// Returns image regions used by training model.
+        /// Returns a labeled region by its id
         /// </summary>
-        /// <param name="imageId">Id of the image</param>
-        /// <response code="200">Regions contained in a image</response>
-        /// <response code="404">If the image id was not found</response>   
-        [HttpGet("byImage/{imageId}")]
+        /// <param name="id">Region Id</param>
+        /// <response code="200">Requested region</response>
+        /// <response code="404">If the region id was not found</response>   
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(IEnumerable<ILabeledRegion>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetTrainingRegions([FromRoute] Guid imageId)
+        public async Task<IActionResult> GetRegionFrom([FromRoute] Guid id)
         {
-            var regions = await _regionService.GetRegionsByImageIdAsync(imageId);
+            var region = await _regionService.GetRegionByIdAsync(id);
 
-            return !regions.Any() ? NotFound() : Ok(regions);
+            return region == null ? NotFound() : Ok(region);
         }
     }
 }

@@ -10,37 +10,25 @@ namespace BubbleGum.WebApi.Services
 {
     public interface IRegionService
     {
-        Task<IEnumerable<ILabeledRegion>> GetRegionsByImageIdAsync(Guid imageId);
+        Task<ILabeledRegion> GetRegionByIdAsync(Guid regionId);
     }
 
     public sealed class RegionService : IRegionService
     {
-        private readonly RegionDbContext _context;
+        private readonly BubbleGumDbContext _context;
 
-        public RegionService(RegionDbContext context) =>
+        public RegionService(BubbleGumDbContext context) =>
             _context = context;
 
-        public async Task<IEnumerable<ILabeledRegion>> GetRegionsByImageIdAsync(Guid imageId)
+        public async Task<ILabeledRegion> GetRegionByIdAsync(Guid regionId)
         {
-            var regions = await _context.Regions
-                .Where(r => r.ImageId == imageId)
-                .Select(r => CreateDto(r))
-                .ToListAsync()
+            var region = await _context.Regions
+                .Where(r => r.Id == regionId)
+                .Select(r => LabeledRegion.CreateDto(r))
+                .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
 
-            return regions;
+            return region;
         }
-
-        private static Models.LabeledRegion CreateDto(Data.Models.LabeledRegion region) =>
-            new Models.LabeledRegion
-            {
-                Id = region.Id,
-                Top = region.Top,
-                Left = region.Left,
-                Width = region.Width,
-                Height = region.Height,
-                Label = region.Label,
-                ImageId = region.ImageId
-            };
     }
 }

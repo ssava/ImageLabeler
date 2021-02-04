@@ -1,5 +1,4 @@
-﻿using BubbleGum.WebApi.Models;
-using System;
+﻿using System;
 
 namespace BubbleGum.WebApi.Models
 {
@@ -13,5 +12,17 @@ namespace BubbleGum.WebApi.Models
 
         public string Label { get; set; }
         public Guid ImageId { get; set; }
+
+        public static LabeledRegion CreateDto(Data.Models.LabeledRegion region) =>
+            new LabeledRegion
+            {
+                Id = region.Id,
+                Top = region.Top,
+                Left = region.Left,
+                Width = region.Width,
+                Height = region.Height,
+                Label = region.Label,
+                ImageId = region.ImageId
+            };
     }
 }

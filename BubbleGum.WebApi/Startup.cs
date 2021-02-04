@@ -44,8 +44,9 @@ namespace BubbleGum.WebApi
             });
 
             services.AddTransient<IRegionService, RegionService>();
+            services.AddTransient<ITrainingImageService, TrainingImageService>();
 
-            services.AddDbContext<RegionDbContext>(
+            services.AddDbContext<BubbleGumDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("BackendConnection")));
         }
 
