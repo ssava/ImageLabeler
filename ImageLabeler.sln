@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageLabeler", "ImageLabeler\ImageLabeler.csproj", "{42C884DA-E462-4243-97A9-73BDF4666184}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BubbleGum.WebApi", "BubbleGum.WebApi\BubbleGum.WebApi.csproj", "{7EFE8496-25CE-4DCC-9D69-D1535CE8BFDF}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BubbleGum.Database", "BubbleGum.Database\BubbleGum.Database.sqlproj", "{A1B2F16C-D7C8-40F8-ADE4-3D9246B9BA97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,16 @@ Global
 		{42C884DA-E462-4243-97A9-73BDF4666184}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42C884DA-E462-4243-97A9-73BDF4666184}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42C884DA-E462-4243-97A9-73BDF4666184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EFE8496-25CE-4DCC-9D69-D1535CE8BFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EFE8496-25CE-4DCC-9D69-D1535CE8BFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EFE8496-25CE-4DCC-9D69-D1535CE8BFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EFE8496-25CE-4DCC-9D69-D1535CE8BFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2F16C-D7C8-40F8-ADE4-3D9246B9BA97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2F16C-D7C8-40F8-ADE4-3D9246B9BA97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2F16C-D7C8-40F8-ADE4-3D9246B9BA97}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A1B2F16C-D7C8-40F8-ADE4-3D9246B9BA97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2F16C-D7C8-40F8-ADE4-3D9246B9BA97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2F16C-D7C8-40F8-ADE4-3D9246B9BA97}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
