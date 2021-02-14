@@ -12,6 +12,7 @@ namespace BubbleGum.WebApi.Models
 
         public string Label { get; set; }
         public Guid ImageId { get; set; }
+        public virtual ITrainingImage SourceImage { get; set; }
 
         public static LabeledRegion CreateDto(Data.Models.LabeledRegion region) =>
             new LabeledRegion
